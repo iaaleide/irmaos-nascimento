@@ -29,16 +29,9 @@ export default function HomePage() {
           <p className="mt-5 max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
             {business.tagline}
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8">
             <WhatsAppLink href={links.quote} appearance="light">
-              Pedir orçamento
-            </WhatsAppLink>
-            <WhatsAppLink
-              href={links.directions(atibaia)}
-              appearance="outline"
-              className="border-white/35 bg-transparent text-white hover:bg-white/10"
-            >
-              Como chegar
+              Peça o Orçamento
             </WhatsAppLink>
           </div>
         </div>
