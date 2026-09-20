@@ -1,10 +1,18 @@
 import { MapPin, Building2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { WhatsAppLink } from "@/components/whatsapp-link";
-import { storeAddress, type Store } from "@/lib/business";
+import { business, storeAddress, type Store } from "@/lib/business";
 import { links } from "@/lib/whatsapp";
 
-export function StoreCard({ store }: { store: Store }) {
+export function StoreCard({
+  store,
+  showFilial,
+}: {
+  store: Store;
+  showFilial?: boolean;
+}) {
+  const filial = business.stores.braganca;
+
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
       <div className="relative min-h-56 bg-stone-100">
@@ -20,7 +28,7 @@ export function StoreCard({ store }: { store: Store }) {
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="secondary">{store.role}</Badge>
           {store.highlight ? (
-            <Badge className="bg-signal text-navy">Loja de Bragança</Badge>
+            <Badge className="bg-signal text-navy">Rua das Esmeraldas</Badge>
           ) : null}
         </div>
         <div>
@@ -48,6 +56,25 @@ export function StoreCard({ store }: { store: Store }) {
             Pedir orçamento
           </WhatsAppLink>
         </div>
+        {showFilial ? (
+          <div className="border-t border-stone-200 pt-4">
+            <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">
+              Filial
+            </p>
+            <p className="mt-1 font-heading text-lg tracking-wide uppercase">
+              {filial.title} · Parque dos Estados
+            </p>
+            <p className="mt-1 text-sm text-stone-600">{storeAddress(filial)}</p>
+            <p className="mt-1 text-xs text-stone-500">CNPJ {filial.cnpj}</p>
+            <WhatsAppLink
+              href={links.directions(filial)}
+              appearance="outline"
+              className="mt-3 h-11 px-4 text-sm"
+            >
+              Rota da filial
+            </WhatsAppLink>
+          </div>
+        ) : null}
       </div>
     </article>
   );

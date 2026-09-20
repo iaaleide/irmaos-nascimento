@@ -9,7 +9,7 @@ import { links } from "@/lib/whatsapp";
 export const metadata: Metadata = {
   title: "Contato",
   description:
-    "Peça orçamento, compra e rota da Irmãos Nascimento pelo WhatsApp. Loja no Parque dos Estados, Bragança Paulista.",
+    "Peça orçamento, compra e rota da Irmãos Nascimento pelo WhatsApp. Loja na Rua das Esmeraldas, Atibaia.",
 };
 
 export default function ContactPage() {
@@ -29,10 +29,10 @@ export default function ContactPage() {
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <WhatsAppLink href={links.quote}>Pedir orçamento</WhatsAppLink>
         <WhatsAppLink
-          href={links.directions(business.stores.braganca)}
+          href={links.directions(business.stores.atibaia)}
           appearance="outline"
         >
-          Pedir rota de Bragança
+          Pedir rota da Rua das Esmeraldas
         </WhatsAppLink>
       </div>
 
@@ -76,9 +76,8 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="mt-12 grid gap-6 lg:grid-cols-2">
-        <StoreCard store={business.stores.braganca} />
-        <StoreCard store={business.stores.atibaia} />
+      <div className="mt-12 max-w-3xl">
+        <StoreCard store={business.stores.atibaia} showFilial />
       </div>
 
       <div className="mt-14 grid gap-8 lg:grid-cols-2 lg:items-start">

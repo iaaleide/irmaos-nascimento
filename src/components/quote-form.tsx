@@ -10,8 +10,8 @@ import type { StoreId } from "@/lib/business";
 
 export function QuoteForm() {
   const [name, setName] = useState("");
-  const [city, setCity] = useState("Bragança Paulista");
-  const [store, setStore] = useState<StoreId | "qualquer">("braganca");
+  const [city, setCity] = useState("Atibaia");
+  const [store, setStore] = useState<StoreId | "qualquer">("atibaia");
   const [items, setItems] = useState("");
 
   const ready = name.trim().length > 1 && items.trim().length > 3;
@@ -54,7 +54,7 @@ export function QuoteForm() {
             id="city"
             value={city}
             onChange={(event) => setCity(event.target.value)}
-            placeholder="Bragança Paulista"
+            placeholder="Atibaia"
             className="h-12 text-base"
           />
         </div>
@@ -70,8 +70,8 @@ export function QuoteForm() {
           }
           className="h-12 w-full rounded-lg border border-input bg-white px-3 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
         >
-          <option value="braganca">Bragança Paulista — Parque dos Estados</option>
-          <option value="atibaia">Atibaia — Chácaras Fernão Dias</option>
+          <option value="atibaia">Atibaia — Rua das Esmeraldas</option>
+          <option value="braganca">Filial — Parque dos Estados, Bragança</option>
           <option value="qualquer">Tanto faz, o que tiver mais rápido</option>
         </select>
       </div>
@@ -82,7 +82,7 @@ export function QuoteForm() {
           id="items"
           value={items}
           onChange={(event) => setItems(event.target.value)}
-          placeholder="Ex.: 20 sacos de cimento, 4 m³ de areia e entrega na Rua X, Parque dos Estados"
+          placeholder="Ex.: 20 sacos de cimento, 4 m³ de areia e entrega na Rua das Esmeraldas"
           className="min-h-32"
           required
         />

@@ -5,14 +5,19 @@ import { links } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "A casa",
-  description: `${business.slogan} Conheça a Irmãos Nascimento, casa de material de construção em Bragança Paulista e Atibaia.`,
+  description: `${business.slogan} Conheça a Irmãos Nascimento, casa de material de construção na Rua das Esmeraldas, Atibaia.`,
 };
 
 export default function AboutPage() {
   return (
     <div>
-      <section className="relative isolate overflow-hidden bg-navy text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,196,0,0.2),transparent_40%),linear-gradient(160deg,#0b1f3a_0%,#14345c_60%,#0b1f3a_100%)]" />
+      <section className="relative isolate min-h-[52vh] overflow-hidden bg-navy text-white">
+        <img
+          src="/images/reforma.jpg"
+          alt="Reforma e acabamento"
+          className="absolute inset-0 size-full object-cover"
+        />
+        <div className="absolute inset-0 bg-navy/65" />
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <p className="w-fit bg-signal px-2.5 py-1 text-xs font-semibold tracking-[0.22em] text-navy uppercase">
             Uma casa de família
@@ -27,54 +32,46 @@ export default function AboutPage() {
         <div className="space-y-5 text-lg leading-relaxed text-stone-700">
           <p>
             A {business.name} é a casa de material de construção da família
-            Nascimento Marques e Ferreira. A razão social é{" "}
-            {business.legalName}, aberta em 9 de outubro de 2023, com o
-            atendimento nas mãos de {business.owners[0]} e {business.owners[1]}.
+            Nascimento Marques e Ferreira. A razão social é {business.legalName},
+            aberta em 9 de outubro de 2023, com o atendimento nas mãos de{" "}
+            {business.owners[0]} e {business.owners[1]}.
           </p>
           <p>
-            A matriz fica em Atibaia, na Rua das Esmeraldas, 2260. Em 15 de maio
-            de 2025 a casa chegou a Bragança Paulista, no Parque dos Estados —
-            Rua Oswaldo Russomano, 380 — para ficar mais perto de quem constrói
-            e reforma por aqui.
+            A loja fica em Atibaia, na Rua das Esmeraldas, 2260. A filial
+            atende no Parque dos Estados, em Bragança Paulista — Rua Oswaldo
+            Russomano, 380.
           </p>
           <p>
-            O slogan não é enfeite: a ideia é que ninguém saia da loja perdido.
-            Se falta um saco de cimento, um disjuntor ou só a rota até o pátio,
-            a conversa vai para o WhatsApp e a gente resolve com calma.
+            As fotos do site são de catálogo, para o rascunho ter cara de loja.
+            O endereço, o CNPJ e o WhatsApp são os da casa de verdade.
           </p>
         </div>
-        <aside className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-          <h2 className="font-heading text-2xl tracking-wide uppercase">
-            Dados da empresa
-          </h2>
-          <dl className="mt-5 space-y-3 text-sm">
-            <div>
-              <dt className="text-stone-500">Nome fantasia</dt>
-              <dd className="font-medium">{business.name}</dd>
-            </div>
-            <div>
-              <dt className="text-stone-500">Razão social</dt>
-              <dd className="font-medium">{business.legalName}</dd>
-            </div>
-            <div>
-              <dt className="text-stone-500">CNPJ da loja em Bragança</dt>
-              <dd className="font-medium">{business.stores.braganca.cnpj}</dd>
-            </div>
-            <div>
-              <dt className="text-stone-500">CNPJ da matriz em Atibaia</dt>
-              <dd className="font-medium">{business.stores.atibaia.cnpj}</dd>
-            </div>
-            <div>
-              <dt className="text-stone-500">Atividade</dt>
-              <dd className="font-medium">
-                Comércio varejista de materiais de construção, material
-                elétrico, ferragens, entrega e caminhão pipa.
-              </dd>
-            </div>
-          </dl>
-          <WhatsAppLink href={links.general} className="mt-6">
-            Falar com a casa
-          </WhatsAppLink>
+        <aside className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
+          <div className="photo-zoom h-48">
+            <img src="/images/madeira.jpg" alt="Madeira e material de obra" />
+          </div>
+          <div className="p-6">
+            <h2 className="font-heading text-2xl tracking-wide uppercase">
+              Dados da empresa
+            </h2>
+            <dl className="mt-5 space-y-3 text-sm">
+              <div>
+                <dt className="text-stone-500">Nome fantasia</dt>
+                <dd className="font-medium">{business.name}</dd>
+              </div>
+              <div>
+                <dt className="text-stone-500">Loja — Rua das Esmeraldas</dt>
+                <dd className="font-medium">{business.stores.atibaia.cnpj}</dd>
+              </div>
+              <div>
+                <dt className="text-stone-500">Filial — Parque dos Estados</dt>
+                <dd className="font-medium">{business.stores.braganca.cnpj}</dd>
+              </div>
+            </dl>
+            <WhatsAppLink href={links.general} className="mt-6">
+              Falar com a casa
+            </WhatsAppLink>
+          </div>
         </aside>
       </section>
     </div>

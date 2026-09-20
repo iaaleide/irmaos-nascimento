@@ -18,8 +18,9 @@ export function SiteFooter() {
             {business.slogan}
           </p>
           <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-300">
-            Casa de material de construção em Bragança Paulista, com matriz em
-            Atibaia. Orçamento, compra e rota saem direto no WhatsApp.
+            Casa de material de construção na Rua das Esmeraldas, em Atibaia,
+            com filial no Parque dos Estados. Orçamento, compra e rota saem no
+            WhatsApp.
           </p>
           <WhatsAppLink href={links.general} className="mt-6">
             Falar no WhatsApp
@@ -28,14 +29,21 @@ export function SiteFooter() {
 
         <div>
           <p className="text-xs font-semibold tracking-[0.18em] text-signal uppercase">
-            Loja em Bragança
+            Loja da Rua das Esmeraldas
           </p>
           <p className="mt-3 text-sm leading-relaxed text-slate-300">
+            {storeAddress(atibaia)}
+          </p>
+          <p className="mt-2 text-xs text-slate-400">CNPJ {atibaia.cnpj}</p>
+          <p className="mt-4 text-xs font-semibold tracking-[0.16em] text-signal/80 uppercase">
+            Filial
+          </p>
+          <p className="mt-1 text-sm leading-relaxed text-slate-300">
             {storeAddress(braganca)}
           </p>
-          <p className="mt-2 text-xs text-slate-400">CNPJ {braganca.cnpj}</p>
+          <p className="mt-1 text-xs text-slate-400">CNPJ {braganca.cnpj}</p>
           <WhatsAppLink
-            href={links.directions(braganca)}
+            href={links.directions(atibaia)}
             appearance="light"
             className="mt-4 h-10 px-4 text-sm"
           >

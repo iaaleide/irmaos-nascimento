@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { business } from "@/lib/business";
 import "./globals.css";
+import "./site.css";
 
 const heading = Oswald({
   variable: "--font-oswald",
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     default: `${business.name} | ${business.slogan}`,
     template: `%s | ${business.name}`,
   },
-  description: `${business.slogan} ${business.tagline} Loja no Parque dos Estados, Bragança Paulista, e matriz em Atibaia.`,
+  description: `${business.slogan} ${business.tagline} Loja na Rua das Esmeraldas, Atibaia, e filial no Parque dos Estados, Bragança Paulista.`,
   openGraph: {
     title: `${business.name} — ${business.slogan}`,
     description: business.tagline,

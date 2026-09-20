@@ -6,14 +6,14 @@ export function whatsappUrl(message: string) {
 
 export const messages = {
   general:
-    "Olá, Irmãos Nascimento! Vim pelo site e quero atendimento na loja de Bragança Paulista.",
+    "Olá, Irmãos Nascimento! Vim pelo site e quero atendimento na loja da Rua das Esmeraldas, 2260, em Atibaia.",
   quote:
-    "Olá, Irmãos Nascimento! Quero um orçamento de materiais de construção para a loja de Bragança Paulista.",
+    "Olá, Irmãos Nascimento! Quero um orçamento de materiais de construção para a loja da Rua das Esmeraldas, em Atibaia.",
   buy(product: string) {
-    return `Olá, Irmãos Nascimento! Quero comprar: ${product}. Podem me passar valor, disponibilidade e entrega para Bragança Paulista?`;
+    return `Olá, Irmãos Nascimento! Quero comprar: ${product}. Podem me passar valor, disponibilidade e entrega na loja da Rua das Esmeraldas, em Atibaia?`;
   },
   category(title: string) {
-    return `Olá, Irmãos Nascimento! Quero ver opções de ${title.toLowerCase()} na loja de Bragança Paulista.`;
+    return `Olá, Irmãos Nascimento! Quero ver opções de ${title.toLowerCase()} na loja da Rua das Esmeraldas, em Atibaia.`;
   },
   directions(store: Store) {
     return `Olá, Irmãos Nascimento! Quero a melhor rota até a loja de ${store.city}, em ${storeAddress(store)}.`;
