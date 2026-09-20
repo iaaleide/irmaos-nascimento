@@ -8,16 +8,16 @@ export function SiteFooter() {
   const atibaia = business.stores.atibaia;
 
   return (
-    <footer className="mt-auto border-t border-stone-200 bg-stone-950 text-stone-100">
+    <footer className="mt-auto border-t-4 border-signal bg-navy text-slate-100">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-2">
           <p className="font-heading text-2xl tracking-wide uppercase">
             {business.name}
           </p>
-          <p className="mt-3 max-w-md font-medium text-amber-100">
+          <p className="mt-3 max-w-md font-medium text-signal">
             {business.slogan}
           </p>
-          <p className="mt-2 max-w-md text-sm leading-relaxed text-stone-300">
+          <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-300">
             Casa de material de construção em Bragança Paulista, com matriz em
             Atibaia. Orçamento, compra e rota saem direto no WhatsApp.
           </p>
@@ -27,13 +27,13 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <p className="text-xs font-semibold tracking-[0.18em] text-amber-200 uppercase">
+          <p className="text-xs font-semibold tracking-[0.18em] text-signal uppercase">
             Loja em Bragança
           </p>
-          <p className="mt-3 text-sm leading-relaxed text-stone-300">
+          <p className="mt-3 text-sm leading-relaxed text-slate-300">
             {storeAddress(braganca)}
           </p>
-          <p className="mt-2 text-xs text-stone-400">CNPJ {braganca.cnpj}</p>
+          <p className="mt-2 text-xs text-slate-400">CNPJ {braganca.cnpj}</p>
           <WhatsAppLink
             href={links.directions(braganca)}
             appearance="light"
@@ -44,24 +44,24 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <p className="text-xs font-semibold tracking-[0.18em] text-amber-200 uppercase">
+          <p className="text-xs font-semibold tracking-[0.18em] text-signal uppercase">
             Horário
           </p>
-          <ul className="mt-3 space-y-1 text-sm text-stone-300">
+          <ul className="mt-3 space-y-1 text-sm text-slate-300">
             {business.hours.map((item) => (
               <li key={item.days}>
-                <span className="text-stone-100">{item.days}:</span> {item.time}
+                <span className="text-white">{item.days}:</span> {item.time}
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-sm text-stone-300">
+          <p className="mt-4 text-sm text-slate-300">
             WhatsApp {business.whatsapp.display}
           </p>
           <a
             href={business.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 inline-block text-sm text-amber-200 underline-offset-4 hover:underline"
+            className="mt-2 inline-block text-sm text-signal underline-offset-4 hover:underline"
           >
             {business.instagramHandle}
           </a>

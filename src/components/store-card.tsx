@@ -20,7 +20,7 @@ export function StoreCard({ store }: { store: Store }) {
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="secondary">{store.role}</Badge>
           {store.highlight ? (
-            <Badge className="bg-primary text-primary-foreground">Loja de Bragança</Badge>
+            <Badge className="bg-signal text-navy">Loja de Bragança</Badge>
           ) : null}
         </div>
         <div>

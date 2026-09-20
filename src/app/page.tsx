@@ -11,11 +11,11 @@ export default function HomePage() {
 
   return (
     <div>
-      <section className="relative isolate overflow-hidden bg-stone-950 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(196,92,38,0.35),transparent_45%),linear-gradient(135deg,#1c1917_0%,#3f2a1d_52%,#1c1917_100%)]" />
-        <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:48px_48px]" />
+      <section className="relative isolate overflow-hidden bg-navy text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(245,196,0,0.22),transparent_36%),linear-gradient(135deg,#0b1f3a_0%,#14345c_55%,#0b1f3a_100%)]" />
+        <div className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgba(245,196,0,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:40px_40px]" />
         <div className="relative mx-auto flex min-h-[82vh] w-full max-w-6xl flex-col justify-center px-4 py-20 sm:px-6">
-          <p className="text-xs font-semibold tracking-[0.22em] text-amber-200 uppercase">
+          <p className="w-fit bg-signal px-2.5 py-1 text-xs font-semibold tracking-[0.22em] text-navy uppercase">
             Parque dos Estados · Bragança Paulista
           </p>
           <h1 className="mt-4 max-w-3xl font-heading text-4xl leading-tight tracking-wide uppercase sm:text-6xl">
@@ -29,7 +29,7 @@ export default function HomePage() {
             <WhatsAppLink href={links.quote} appearance="light">
               Pedir orçamento
             </WhatsAppLink>
-            <WhatsAppLink href={links.directions(braganca)} appearance="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10">
+            <WhatsAppLink href={links.directions(braganca)} appearance="outline" className="border-white/35 bg-transparent text-white hover:bg-white/10">
               Como chegar
             </WhatsAppLink>
           </div>
@@ -73,7 +73,7 @@ export default function HomePage() {
       <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <p className="text-xs font-semibold tracking-[0.18em] text-primary uppercase">
+            <p className="w-fit bg-signal px-2 py-1 text-xs font-semibold tracking-[0.18em] text-navy uppercase">
               O que tem na casa
             </p>
             <h2 className="mt-2 font-heading text-3xl tracking-wide uppercase sm:text-4xl">
@@ -90,7 +90,9 @@ export default function HomePage() {
               key={category.slug}
               className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm"
             >
-              <div className={`h-28 bg-linear-to-br ${category.tone}`} />
+              <div className={`relative h-28 bg-linear-to-br ${category.tone}`}>
+                <span className="absolute inset-x-0 top-0 h-1.5 bg-signal" />
+              </div>
               <div className="p-5">
                 <h3 className="font-heading text-xl tracking-wide uppercase">
                   {category.title}
@@ -110,10 +112,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-stone-950 text-stone-100">
+      <section className="bg-navy text-slate-100">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center">
           <div>
-            <p className="text-xs font-semibold tracking-[0.18em] text-amber-200 uppercase">
+            <p className="w-fit bg-signal px-2 py-1 text-xs font-semibold tracking-[0.18em] text-navy uppercase">
               Como funciona
             </p>
             <h2 className="mt-2 font-heading text-3xl tracking-wide uppercase sm:text-4xl">
@@ -125,8 +127,8 @@ export default function HomePage() {
                 "A gente confirma estoque, valor e se tem entrega no dia.",
                 "Você retira no Parque dos Estados ou pede a rota e o carregamento.",
               ].map((step, index) => (
-                <li key={step} className="flex gap-3 text-stone-200">
-                  <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-amber-300" />
+                <li key={step} className="flex gap-3 text-slate-200">
+                  <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-signal" />
                   <span>
                     <strong className="text-white">{index + 1}.</strong> {step}
                   </span>
@@ -141,7 +143,7 @@ export default function HomePage() {
       <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold tracking-[0.18em] text-primary uppercase">
+            <p className="w-fit bg-signal px-2 py-1 text-xs font-semibold tracking-[0.18em] text-navy uppercase">
               Onde estamos
             </p>
             <h2 className="mt-2 font-heading text-3xl tracking-wide uppercase sm:text-4xl">

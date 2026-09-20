@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div>
-      <section className="relative isolate overflow-hidden bg-stone-950 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(196,92,38,0.32),transparent_42%),linear-gradient(160deg,#1c1917_0%,#3f2a1d_60%,#1c1917_100%)]" />
+      <section className="relative isolate overflow-hidden bg-navy text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,196,0,0.2),transparent_40%),linear-gradient(160deg,#0b1f3a_0%,#14345c_60%,#0b1f3a_100%)]" />
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6">
-          <p className="text-xs font-semibold tracking-[0.22em] text-amber-200 uppercase">
+          <p className="w-fit bg-signal px-2.5 py-1 text-xs font-semibold tracking-[0.22em] text-navy uppercase">
             Uma casa de família
           </p>
           <h1 className="mt-4 max-w-3xl font-heading text-4xl tracking-wide uppercase sm:text-6xl">

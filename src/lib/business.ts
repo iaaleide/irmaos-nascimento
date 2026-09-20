@@ -70,7 +70,7 @@ export const categories = [
     slug: "construcao",
     title: "Materiais de construção",
     summary: "Cimento, areia, brita, cal, bloco, tijolo e telha para alicerce e alvenaria.",
-    tone: "from-amber-800 to-stone-900",
+    tone: "from-[#0b1f3a] to-[#1e4d8c]",
     items: [
       "Cimento",
       "Areia",
@@ -86,7 +86,7 @@ export const categories = [
     slug: "eletrico",
     title: "Material elétrico",
     summary: "Fios, cabos, disjuntores, tomadas e o básico para a instalação da obra.",
-    tone: "from-yellow-700 to-stone-800",
+    tone: "from-[#14345c] to-[#f5c400]",
     items: [
       "Fios e cabos",
       "Disjuntores",
@@ -100,7 +100,7 @@ export const categories = [
     slug: "ferragens",
     title: "Ferragens e ferramentas",
     summary: "Parafusos, fechaduras, dobradiças e ferramentas de uso diário no canteiro.",
-    tone: "from-orange-800 to-stone-900",
+    tone: "from-[#0b1f3a] to-[#2457a6]",
     items: [
       "Parafusos e pregos",
       "Fechaduras",
@@ -114,7 +114,7 @@ export const categories = [
     slug: "entrega",
     title: "Entrega na obra",
     summary: "Transporte de carga municipal e intermunicipal para deixar o material no endereço.",
-    tone: "from-emerald-800 to-stone-900",
+    tone: "from-[#14345c] to-[#0b1f3a]",
     items: [
       "Entrega em Bragança Paulista",
       "Entrega em Atibaia e região",
@@ -126,7 +126,7 @@ export const categories = [
     slug: "agua",
     title: "Caminhão pipa",
     summary: "Distribuição de água por caminhão, cadastrada na matriz da empresa.",
-    tone: "from-sky-800 to-stone-900",
+    tone: "from-[#164e73] to-[#0b1f3a]",
     items: ["Água para obra", "Abastecimento sob consulta", "Agendamento pelo WhatsApp"],
   },
 ] as const;

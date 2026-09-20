@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
-      <p className="text-xs font-semibold tracking-[0.18em] text-primary uppercase">
+      <p className="w-fit bg-signal px-2 py-1 text-xs font-semibold tracking-[0.18em] text-navy uppercase">
         Fale com a loja
       </p>
       <h1 className="mt-2 max-w-3xl font-heading text-4xl tracking-wide uppercase sm:text-5xl">

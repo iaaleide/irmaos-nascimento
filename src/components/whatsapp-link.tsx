@@ -23,7 +23,7 @@ export function WhatsAppLink({
     primary: "",
     outline: "bg-background",
     light:
-      "border-white/20 bg-white text-stone-900 hover:bg-amber-50",
+      "border-transparent bg-signal text-navy hover:bg-[#ffd84a]",
   }[appearance];
 
   return (

@@ -28,10 +28,11 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-[color-mix(in_oklch,var(--background),white_35%)]/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-navy/10 bg-white/92 backdrop-blur-md">
+      <div className="h-1.5 bg-[repeating-linear-gradient(90deg,#f5c400_0_18px,#0b1f3a_18px_28px)]" />
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:h-18 sm:px-6">
         <Link href="/" className="flex items-center gap-3">
-          <span className="grid size-10 place-items-center rounded-md bg-primary text-primary-foreground shadow-sm">
+          <span className="grid size-10 place-items-center rounded-sm bg-navy text-signal shadow-sm">
             <span className="font-heading text-lg leading-none tracking-tight">IN</span>
           </span>
           <span className="leading-tight">
