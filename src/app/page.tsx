@@ -8,8 +8,6 @@ import { business, categories } from "@/lib/business";
 import { links } from "@/lib/whatsapp";
 
 export default function HomePage() {
-  const atibaia = business.stores.atibaia;
-
   return (
     <div>
       <section className="relative isolate min-h-[88svh] overflow-hidden bg-navy text-white">
@@ -23,12 +21,9 @@ export default function HomePage() {
           <p className="w-fit bg-signal px-2.5 py-1 text-xs font-semibold tracking-[0.22em] text-navy uppercase">
             Rua das Esmeraldas, 2260 · Atibaia
           </p>
-          <h1 className="reveal mt-4 max-w-3xl font-heading text-[2.1rem] leading-[1.05] tracking-wide uppercase sm:text-6xl">
-            {business.slogan}
+          <h1 className="reveal mt-4 max-w-3xl font-heading text-[2.1rem] leading-[1.05] tracking-wide uppercase sm:text-5xl md:text-6xl">
+            Peça o seu orçamento na melhor casa de materiais da região
           </h1>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
-            {business.tagline}
-          </p>
           <div className="mt-8">
             <WhatsAppLink href={links.quote} appearance="light">
               Peça o Orçamento
