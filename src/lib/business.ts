@@ -70,8 +70,7 @@ export const categories = [
     slug: "construcao",
     title: "Materiais de construção",
     summary: "Cimento, areia, brita, cal, bloco, tijolo e telha para alicerce e alvenaria.",
-    image:
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=80",
+    tone: "from-amber-800 to-stone-900",
     items: [
       "Cimento",
       "Areia",
@@ -87,8 +86,7 @@ export const categories = [
     slug: "eletrico",
     title: "Material elétrico",
     summary: "Fios, cabos, disjuntores, tomadas e o básico para a instalação da obra.",
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=80",
+    tone: "from-yellow-700 to-stone-800",
     items: [
       "Fios e cabos",
       "Disjuntores",
@@ -102,8 +100,7 @@ export const categories = [
     slug: "ferragens",
     title: "Ferragens e ferramentas",
     summary: "Parafusos, fechaduras, dobradiças e ferramentas de uso diário no canteiro.",
-    image:
-      "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=1600&q=80",
+    tone: "from-orange-800 to-stone-900",
     items: [
       "Parafusos e pregos",
       "Fechaduras",
@@ -117,8 +114,7 @@ export const categories = [
     slug: "entrega",
     title: "Entrega na obra",
     summary: "Transporte de carga municipal e intermunicipal para deixar o material no endereço.",
-    image:
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80",
+    tone: "from-emerald-800 to-stone-900",
     items: [
       "Entrega em Bragança Paulista",
       "Entrega em Atibaia e região",
@@ -130,8 +126,7 @@ export const categories = [
     slug: "agua",
     title: "Caminhão pipa",
     summary: "Distribuição de água por caminhão, cadastrada na matriz da empresa.",
-    image:
-      "https://images.unsplash.com/photo-1565008447742-2b2997e51c5b?auto=format&fit=crop&w=1600&q=80",
+    tone: "from-sky-800 to-stone-900",
     items: ["Água para obra", "Abastecimento sob consulta", "Agendamento pelo WhatsApp"],
   },
 ] as const;

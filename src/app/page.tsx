@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, HeartHandshake, MapPinned, PackageSearch, Smile } from "lucide-react";
 import { QuoteForm } from "@/components/quote-form";
@@ -13,14 +12,8 @@ export default function HomePage() {
   return (
     <div>
       <section className="relative isolate overflow-hidden bg-stone-950 text-white">
-        <Image
-          src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2000&q=80"
-          alt="Canteiro de obra com materiais de construção"
-          fill
-          priority
-          className="object-cover object-center opacity-40"
-        />
-        <div className="absolute inset-0 bg-linear-to-r from-stone-950 via-stone-950/80 to-stone-950/30" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(196,92,38,0.35),transparent_45%),linear-gradient(135deg,#1c1917_0%,#3f2a1d_52%,#1c1917_100%)]" />
+        <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:48px_48px]" />
         <div className="relative mx-auto flex min-h-[82vh] w-full max-w-6xl flex-col justify-center px-4 py-20 sm:px-6">
           <p className="text-xs font-semibold tracking-[0.22em] text-amber-200 uppercase">
             Parque dos Estados · Bragança Paulista
@@ -97,14 +90,7 @@ export default function HomePage() {
               key={category.slug}
               className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm"
             >
-              <div className="relative h-44">
-                <Image
-                  src={category.image}
-                  alt={category.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+              <div className={`h-28 bg-linear-to-br ${category.tone}`} />
               <div className="p-5">
                 <h3 className="font-heading text-xl tracking-wide uppercase">
                   {category.title}

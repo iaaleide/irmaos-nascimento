@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { WhatsAppLink } from "@/components/whatsapp-link";
 import { business } from "@/lib/business";
 import { links } from "@/lib/whatsapp";
@@ -13,13 +12,7 @@ export default function AboutPage() {
   return (
     <div>
       <section className="relative isolate overflow-hidden bg-stone-950 text-white">
-        <Image
-          src="https://images.unsplash.com/photo-1581094794329-adc411b6987a?auto=format&fit=crop&w=1800&q=80"
-          alt="Materiais e ferramentas de construção"
-          fill
-          className="object-cover opacity-35"
-        />
-        <div className="absolute inset-0 bg-stone-950/55" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(196,92,38,0.32),transparent_42%),linear-gradient(160deg,#1c1917_0%,#3f2a1d_60%,#1c1917_100%)]" />
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6">
           <p className="text-xs font-semibold tracking-[0.22em] text-amber-200 uppercase">
             Uma casa de família
