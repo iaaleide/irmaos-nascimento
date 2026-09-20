@@ -14,11 +14,11 @@ export default function HomePage() {
       <section className="relative isolate overflow-hidden bg-navy text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(245,196,0,0.22),transparent_36%),linear-gradient(135deg,#0b1f3a_0%,#14345c_55%,#0b1f3a_100%)]" />
         <div className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgba(245,196,0,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:40px_40px]" />
-        <div className="relative mx-auto flex min-h-[82vh] w-full max-w-6xl flex-col justify-center px-4 py-20 sm:px-6">
+        <div className="relative mx-auto flex min-h-[70svh] w-full max-w-6xl flex-col justify-center px-4 py-14 sm:min-h-[82vh] sm:px-6 sm:py-20">
           <p className="w-fit bg-signal px-2.5 py-1 text-xs font-semibold tracking-[0.22em] text-navy uppercase">
             Parque dos Estados · Bragança Paulista
           </p>
-          <h1 className="mt-4 max-w-3xl font-heading text-4xl leading-tight tracking-wide uppercase sm:text-6xl">
+          <h1 className="mt-4 max-w-3xl font-heading text-[2rem] leading-tight tracking-wide uppercase sm:text-6xl">
             {business.slogan}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-stone-100/90">

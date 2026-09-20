@@ -7,11 +7,12 @@ export function WhatsAppFloat() {
       href={links.general}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed right-4 bottom-4 z-50 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-900/20 transition hover:bg-[#20bd5a] sm:right-6 sm:bottom-6"
+      aria-label="Falar no WhatsApp"
+      className="fixed right-4 z-50 inline-flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-emerald-900/25 transition hover:bg-[#20bd5a] touch-manipulation sm:right-6 sm:h-12 sm:w-auto sm:gap-2 sm:px-4"
+      style={{ bottom: "max(1rem, env(safe-area-inset-bottom))" }}
     >
-      <WhatsAppIcon className="size-5" />
-      <span className="hidden sm:inline">WhatsApp</span>
-      <span className="sm:hidden">Falar</span>
+      <WhatsAppIcon className="size-6 sm:size-5" />
+      <span className="hidden text-sm font-semibold sm:inline">WhatsApp</span>
     </a>
   );
 }

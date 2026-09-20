@@ -35,7 +35,7 @@ export function WhatsAppLink({
           variant: appearance === "primary" ? "default" : "outline",
           size,
         }),
-        "h-12 rounded-full px-5 text-base",
+        "h-12 min-h-12 w-full rounded-full px-5 text-base touch-manipulation sm:w-auto",
         appearanceClass,
         className,
       )}

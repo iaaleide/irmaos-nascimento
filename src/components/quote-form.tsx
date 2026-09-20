@@ -43,7 +43,8 @@ export function QuoteForm() {
             value={name}
             onChange={(event) => setName(event.target.value)}
             placeholder="Como devemos te chamar"
-            className="h-11"
+            className="h-12 text-base"
+            autoComplete="name"
             required
           />
         </div>
@@ -54,7 +55,7 @@ export function QuoteForm() {
             value={city}
             onChange={(event) => setCity(event.target.value)}
             placeholder="Bragança Paulista"
-            className="h-11"
+            className="h-12 text-base"
           />
         </div>
       </div>
@@ -67,7 +68,7 @@ export function QuoteForm() {
           onChange={(event) =>
             setStore(event.target.value as StoreId | "qualquer")
           }
-          className="h-11 w-full rounded-lg border border-input bg-transparent px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+          className="h-12 w-full rounded-lg border border-input bg-white px-3 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
         >
           <option value="braganca">Bragança Paulista — Parque dos Estados</option>
           <option value="atibaia">Atibaia — Chácaras Fernão Dias</option>

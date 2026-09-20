@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Oswald, Source_Sans_3 } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -16,6 +16,13 @@ const sans = Source_Sans_3({
   variable: "--font-source-sans",
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0b1f3a",
+};
 
 export const metadata: Metadata = {
   title: {
@@ -42,7 +49,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <SiteHeader />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pb-24 sm:pb-10">{children}</main>
         <SiteFooter />
         <WhatsAppFloat />
       </body>

@@ -31,15 +31,15 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-navy/10 bg-white/92 backdrop-blur-md">
       <div className="h-1.5 bg-[repeating-linear-gradient(90deg,#f5c400_0_18px,#0b1f3a_18px_28px)]" />
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:h-18 sm:px-6">
-        <Link href="/" className="flex items-center gap-3">
-          <span className="grid size-10 place-items-center rounded-sm bg-navy text-signal shadow-sm">
+        <Link href="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+          <span className="grid size-10 shrink-0 place-items-center rounded-sm bg-navy text-signal shadow-sm">
             <span className="font-heading text-lg leading-none tracking-tight">IN</span>
           </span>
-          <span className="leading-tight">
-            <span className="block font-heading text-lg tracking-wide text-stone-900 uppercase">
+          <span className="min-w-0 leading-tight">
+            <span className="block truncate font-heading text-base tracking-wide text-stone-900 uppercase sm:text-lg">
               {business.name}
             </span>
-            <span className="block text-xs text-stone-600">
+            <span className="hidden text-xs text-stone-600 sm:block">
               Encontre o que precisa e saia feliz
             </span>
           </span>
@@ -74,14 +74,14 @@ export function SiteHeader() {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="md:hidden"
+                  className="size-11 md:hidden"
                   aria-label="Abrir menu"
                 />
               }
             >
               <Menu />
             </SheetTrigger>
-            <SheetContent side="right" className="w-80">
+            <SheetContent side="right" className="w-[min(20rem,100vw)]">
               <SheetHeader>
                 <SheetTitle className="font-heading text-left text-xl uppercase">
                   {business.name}
