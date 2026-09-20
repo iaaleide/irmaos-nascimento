@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0b1f3a;
+  --color-navy-mid: #14345c;
+  --color-signal: #f5c400;
+  --color-concrete: #e8e4dc;
+  --font-heading: "Oswald", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: #1a1a1a;
+  background: #f6f4ef;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+.photo-zoom img {
+  transition: transform 400ms ease;
+}
+
+.photo-zoom:hover img {
+  transform: scale(1.06);
+}

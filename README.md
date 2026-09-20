@@ -1,38 +1,28 @@
 # Irmãos Nascimento
 
-Rascunho do site da casa de material de construção **Irmãos Nascimento**, com loja em Bragança Paulista e matriz em Atibaia.
-
-O slogan da casa:
-
-> Aqui você encontra o que precisa, é bem atendido e sai feliz.
-
-Compra, orçamento e pedido de rota saem no WhatsApp. Não há carrinho nem checkout.
-
-## Dados usados no site
-
-Os dados vêm de cadastro público da Receita Federal e de listagens da empresa:
-
-- **Nome fantasia:** Irmãos Nascimento
-- **Razão social:** Nascimento Marques e Ferreira Material de Construção Ltda
-- **Loja Bragança Paulista:** Rua Oswaldo Russomano, 380 — Parque dos Estados — CEP 12922-150 — CNPJ 52.474.273/0002-52
-- **Matriz Atibaia:** Rua das Esmeraldas, 2260 — Chácaras Fernão Dias — CEP 12954-637 — CNPJ 52.474.273/0001-71
-- **WhatsApp:** (11) 97500-4168
-- **Instagram:** [@irmaosnascimento2023](https://www.instagram.com/irmaosnascimento2023)
+Site da casa de materiais de construção **Irmãos Nascimento**, com foco na loja da Rua das Esmeraldas, 2260, em Atibaia. Compra, orçamento e rota abrem só no WhatsApp.
 
 ## Como rodar
 
 ```bash
 npm install
-npm run dev
-```
-
-O servidor sobe em [http://127.0.0.1:43147](http://127.0.0.1:43147).
-
-```bash
 npm run build
 npm start
 ```
 
-## Stack
+O site sobe em `http://127.0.0.1:43147`.
 
-Next.js, TypeScript, Tailwind CSS e shadcn/ui.
+Para desenvolvimento:
+
+```bash
+npm run dev
+```
+
+## O que o site faz
+
+- Banner com o texto *Peça o seu orçamento na melhor casa de materiais da região* e o botão **Peça o Orçamento**
+- Produtos e categorias com fotos de obra
+- Loja de Atibaia em destaque e filial do Parque dos Estados em Bragança Paulista abaixo
+- Formulário de orçamento que monta a mensagem e abre o WhatsApp `(11) 97500-4168`
+
+Não há carrinho nem checkout.
