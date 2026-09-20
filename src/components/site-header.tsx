@@ -1,0 +1,108 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { WhatsAppLink } from "@/components/whatsapp-link";
+import { business } from "@/lib/business";
+import { links } from "@/lib/whatsapp";
+import { cn } from "@/lib/utils";
+
+const nav = [
+  { href: "/", label: "Início" },
+  { href: "/produtos", label: "Produtos" },
+  { href: "/sobre", label: "A casa" },
+  { href: "/contato", label: "Contato" },
+];
+
+export function SiteHeader() {
+  const pathname = usePathname();
+
+  return (
+    <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-[color-mix(in_oklch,var(--background),white_35%)]/90 backdrop-blur-md">
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:h-18 sm:px-6">
+        <Link href="/" className="flex items-center gap-3">
+          <span className="grid size-10 place-items-center rounded-md bg-primary text-primary-foreground shadow-sm">
+            <span className="font-heading text-lg leading-none tracking-tight">IN</span>
+          </span>
+          <span className="leading-tight">
+            <span className="block font-heading text-lg tracking-wide text-stone-900 uppercase">
+              {business.name}
+            </span>
+            <span className="block text-xs text-stone-600">
+              Encontre o que precisa e saia feliz
+            </span>
+          </span>
+        </Link>
+
+        <nav className="hidden items-center gap-7 md:flex">
+          {nav.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "text-sm font-medium text-stone-600 transition-colors hover:text-stone-950",
+                pathname === item.href && "text-stone-950",
+              )}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <WhatsAppLink
+            href={links.quote}
+            className="hidden h-10 px-4 text-sm sm:inline-flex"
+          >
+            Pedir orçamento
+          </WhatsAppLink>
+
+          <Sheet>
+            <SheetTrigger
+              render={
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="md:hidden"
+                  aria-label="Abrir menu"
+                />
+              }
+            >
+              <Menu />
+            </SheetTrigger>
+            <SheetContent side="right" className="w-80">
+              <SheetHeader>
+                <SheetTitle className="font-heading text-left text-xl uppercase">
+                  {business.name}
+                </SheetTitle>
+              </SheetHeader>
+              <div className="flex flex-col gap-4 px-4">
+                {nav.map((item) => (
+                  <SheetClose
+                    key={item.href}
+                    render={<Link href={item.href} className="text-lg font-medium" />}
+                  >
+                    {item.label}
+                  </SheetClose>
+                ))}
+                <WhatsAppLink href={links.quote} className="mt-2 w-full">
+                  Pedir orçamento
+                </WhatsAppLink>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
+  );
+}
