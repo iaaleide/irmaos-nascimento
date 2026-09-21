@@ -3,6 +3,7 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import {
   business,
   categories,
+  isHoliday,
   isOpenNow,
   mapsUrl,
   messages,
@@ -153,12 +154,15 @@ function QuoteForm() {
 export default function App() {
   const [open, setOpen] = useState(false);
   const openNow = isOpenNow();
+  const holiday = isHoliday();
+  const statusLabel = openNow ? (holiday ? "Aberto · feriado" : "Aberto agora") : holiday ? "Fechado · feriado" : "Fechado agora";
 
   return (
     <div className="min-h-svh bg-[#f6f4ef] text-stone-900">
       {!openNow ? (
         <div className="bg-signal px-4 py-2.5 text-center text-sm font-semibold text-navy sm:px-6">
-          Fora do horário agora. Funcionamos {business.hoursSummary}. Pode mandar no WhatsApp — respondemos assim que abrir.
+          {holiday ? "Hoje é feriado. " : "Fora do horário agora. "}
+          Funcionamos {business.hoursSummary}. Pode mandar no WhatsApp — respondemos assim que abrir.
         </div>
       ) : null}
       <header className="sticky top-0 z-30 border-b border-white/10 bg-navy text-white">
@@ -331,7 +335,7 @@ export default function App() {
                   openNow ? "bg-emerald-100 text-emerald-900" : "bg-signal text-navy"
                 }`}
               >
-                {openNow ? "Aberto agora" : "Fechado agora"}
+                {statusLabel}
               </span>
             </div>
             <ul className="mt-3 grid gap-2 text-stone-700 sm:grid-cols-3">

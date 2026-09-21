@@ -14,7 +14,7 @@ export const business = {
   hours: [
     { days: "Segunda a sábado", time: "07h30 às 17h30" },
     { days: "Domingo", time: "07h30 às 12h" },
-    { days: "Feriados", time: "Fechado" },
+    { days: "Feriados", time: "07h30 às 12h" },
   ],
   /** Texto pronto para Mensagem de ausência no WhatsApp Business. */
   awayAutoReply: [
@@ -25,13 +25,13 @@ export const business = {
     "Nosso horário de funcionamento:",
     "• Segunda a sábado: 07h30 às 17h30",
     "• Domingo: 07h30 às 12h",
-    "• Feriados: fechado",
+    "• Feriados: 07h30 às 12h",
     "",
     "Deixe sua mensagem com nome, o que precisa e a cidade da obra.",
     "Assim que a loja abrir, retornamos por aqui.",
   ].join("\n"),
   hoursSummary:
-    "Segunda a sábado: 07h30 às 17h30 · Domingo: 07h30 às 12h · Feriados: fechado",
+    "Segunda a sábado: 07h30 às 17h30 · Domingo: 07h30 às 12h · Feriados: 07h30 às 12h",
   stores: {
     atibaia: {
       id: "atibaia",
@@ -87,6 +87,102 @@ const weekdayMap: Record<string, number> = {
   Sat: 6,
 };
 
+const OPEN_MINUTES = 7 * 60 + 30;
+const NOON_MINUTES = 12 * 60;
+const WEEKDAY_CLOSE_MINUTES = 17 * 60 + 30;
+
+/** Feriados nacionais e de SP (mês-dia). */
+const FIXED_HOLIDAYS_MMDD = [
+  "01-01", // Confraternização Universal
+  "04-21", // Tiradentes
+  "05-01", // Dia do Trabalho
+  "07-09", // Revolução Constitucionalista (SP)
+  "09-07", // Independência
+  "10-12", // Nossa Senhora Aparecida
+  "11-02", // Finados
+  "11-15", // Proclamação da República
+  "11-20", // Consciência Negra
+  "12-25", // Natal
+] as const;
+
+/** Feriados municipais de Bragança Paulista (e região — confirme anualmente na prefeitura). */
+const BRAGANCA_HOLIDAYS_MMDD = [
+  "12-18", // Aniversário de Bragança Paulista
+] as const;
+
+/** Cache por ano civil para não recalcular Páscoa a cada clique. */
+const holidayCache = new Map<number, Set<string>>();
+
+/** Páscoa (algoritmo de Meeus) — base de Carnaval, Sexta Santa e Corpus Christi. */
+function easterDate(year: number) {
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31);
+  const day = ((h + l - 7 * m + 114) % 31) + 1;
+  return { month, day };
+}
+
+function addDays(year: number, month: number, day: number, delta: number) {
+  const dt = new Date(Date.UTC(year, month - 1, day + delta));
+  return {
+    year: dt.getUTCFullYear(),
+    month: dt.getUTCMonth() + 1,
+    day: dt.getUTCDate(),
+  };
+}
+
+function ymdKey(year: number, month: number, day: number) {
+  return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+}
+
+function holidaySetForYear(year: number) {
+  const cached = holidayCache.get(year);
+  if (cached) return cached;
+
+  const set = new Set<string>();
+  for (const mmdd of [...FIXED_HOLIDAYS_MMDD, ...BRAGANCA_HOLIDAYS_MMDD]) {
+    set.add(`${year}-${mmdd}`);
+  }
+
+  const easter = easterDate(year);
+  const carnivalMon = addDays(year, easter.month, easter.day, -48);
+  const carnivalTue = addDays(year, easter.month, easter.day, -47);
+  const goodFriday = addDays(year, easter.month, easter.day, -2);
+  const corpusChristi = addDays(year, easter.month, easter.day, 60);
+
+  for (const d of [carnivalMon, carnivalTue, goodFriday, corpusChristi]) {
+    set.add(ymdKey(d.year, d.month, d.day));
+  }
+
+  holidayCache.set(year, set);
+  return set;
+}
+
+function saoPauloDateKey(date: Date) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Sao_Paulo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+
+  const get = (type: string) => parts.find((part) => part.type === type)?.value ?? "";
+  return {
+    year: Number(get("year")),
+    key: `${get("year")}-${get("month")}-${get("day")}`,
+  };
+}
+
 /** Horário local de Atibaia / Bragança (America/Sao_Paulo). */
 export function getSaoPauloNow(date = new Date()) {
   const parts = new Intl.DateTimeFormat("en-US", {
@@ -106,12 +202,22 @@ export function getSaoPauloNow(date = new Date()) {
   return { weekday, hour, minute, minutes: hour * 60 + minute };
 }
 
-/** Aberto: seg–sáb 07h30–17h30, domingo 07h30–12h. Feriados não dá para detectar no site. */
+/** Feriados nacionais, de SP e principais de Bragança Paulista (timezone SP). */
+export function isHoliday(date = new Date()) {
+  const { year, key } = saoPauloDateKey(date);
+  return holidaySetForYear(year).has(key);
+}
+
+/**
+ * Aberto: seg–sáb 07h30–17h30; domingo e feriados 07h30–12h.
+ * Feriados: nacionais, SP (9/jul) e aniversário de Bragança (18/dez), mais móveis via Páscoa.
+ */
 export function isOpenNow(date = new Date()) {
   const { weekday, minutes } = getSaoPauloNow(date);
-  const open = 7 * 60 + 30;
-  if (weekday === 0) return minutes >= open && minutes < 12 * 60;
-  return minutes >= open && minutes < 17 * 60 + 30;
+  if (isHoliday(date) || weekday === 0) {
+    return minutes >= OPEN_MINUTES && minutes < NOON_MINUTES;
+  }
+  return minutes >= OPEN_MINUTES && minutes < WEEKDAY_CLOSE_MINUTES;
 }
 
 export function withHoursIfClosed(message: string, date = new Date()) {
