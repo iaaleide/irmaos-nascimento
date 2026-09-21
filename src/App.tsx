@@ -15,16 +15,6 @@ import {
   type StoreId,
 } from "./data";
 
-function InstagramIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
-      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="2" />
-      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
-      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
-    </svg>
-  );
-}
-
 const nav = [
   { href: "#inicio", label: "Início" },
   { href: "#produtos", label: "Produtos" },
@@ -209,8 +199,18 @@ export default function App() {
       ) : null}
       <header className="sticky top-0 z-30 border-b border-white/10 bg-navy text-white">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:h-18 sm:px-6">
-          <a href="#inicio" className="font-heading text-lg tracking-wide uppercase sm:text-xl">
-            Irmãos Nascimento | Casa de Materiais de Construção
+          <a href="#inicio" className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+            <img
+              src={business.logo}
+              alt="Logo Irmãos Nascimento"
+              className="h-10 w-auto shrink-0 bg-white object-contain p-1 sm:h-12"
+            />
+            <span className="font-heading text-sm leading-tight tracking-wide uppercase sm:text-base md:text-lg">
+              Irmãos Nascimento
+              <span className="mt-0.5 block text-[0.65rem] font-sans font-semibold tracking-[0.08em] text-signal normal-case sm:text-xs">
+                Casa de Materiais de Construção
+              </span>
+            </span>
           </a>
           <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
             {nav.map((item) => (
@@ -425,6 +425,11 @@ export default function App() {
       <footer className="bg-navy text-white">
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-3 sm:px-6">
           <div>
+            <img
+              src={business.logo}
+              alt="Logo Irmãos Nascimento"
+              className="mb-4 h-16 w-auto bg-white object-contain p-1.5"
+            />
             <p className="font-heading text-xl tracking-wide uppercase">{business.name}</p>
             <p className="mt-2 text-sm text-white/75">{slogan}</p>
           </div>
@@ -451,9 +456,11 @@ export default function App() {
               className="mt-4 flex w-fit items-center gap-3 rounded-sm border border-white/20 bg-white/5 px-3 py-2.5 hover:bg-white/10"
               aria-label={`Instagram ${business.instagramHandle}`}
             >
-              <span className="flex size-10 items-center justify-center bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white">
-                <InstagramIcon className="size-5" />
-              </span>
+              <img
+                src={business.logo}
+                alt="Perfil Instagram Irmãos Nascimento"
+                className="size-12 shrink-0 bg-white object-contain p-1"
+              />
               <span>
                 <span className="block text-xs tracking-[0.14em] text-white/70 uppercase">Instagram</span>
                 <span className="font-semibold text-signal">{business.instagramHandle}</span>

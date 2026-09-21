@@ -6,6 +6,7 @@ export const business = {
     "Casa de material de construção na Rua das Esmeraldas, em Atibaia: atendimento de verdade, o item certo para a obra e a paz de resolver tudo no mesmo lugar.",
   instagram: "https://www.instagram.com/irmaosnasc_26",
   instagramHandle: "@irmaosnasc_26",
+  logo: "/images/logo-irmaos-nascimento.png",
   email: "alonsomarques1@gmail.com",
   whatsapp: {
     e164: "5511975004168",
