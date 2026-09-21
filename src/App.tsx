@@ -1,5 +1,6 @@
 import { HeartHandshake, MapPin, Menu, PackageSearch, Smile, X } from "lucide-react";
-import { useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { fetchConfig, trackVisit, trackWhatsApp } from "./analytics";
 import {
   business,
   categories,
@@ -26,10 +27,12 @@ function WhatsAppButton({
   href,
   children,
   tone = "yellow",
+  segment,
 }: {
   href: string;
   children: ReactNode;
   tone?: "yellow" | "navy" | "ghost";
+  segment: string;
 }) {
   const className =
     tone === "yellow"
@@ -38,13 +41,20 @@ function WhatsAppButton({
         ? "inline-flex items-center justify-center bg-navy px-5 py-3 text-sm font-semibold tracking-wide text-white uppercase hover:bg-navy-mid"
         : "inline-flex items-center justify-center border border-white/40 px-5 py-3 text-sm font-semibold tracking-wide text-white uppercase hover:bg-white/10";
   return (
-    <a href={href} target="_blank" rel="noreferrer" className={className}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className={className}
+      onClick={() => void trackWhatsApp(segment)}
+    >
       {children}
     </a>
   );
 }
 
 function StoreBlock({ store }: { store: Store }) {
+  const segment = store.id === "atibaia" ? "directions_atibaia" : "directions_braganca";
   return (
     <article className="border border-stone-200 bg-white p-6">
       <p className="w-fit bg-signal px-2 py-0.5 text-xs font-semibold tracking-[0.16em] text-navy uppercase">
@@ -55,7 +65,7 @@ function StoreBlock({ store }: { store: Store }) {
       <p className="mt-2 text-sm text-stone-500">CNPJ {store.cnpj}</p>
       <p className="mt-1 text-sm text-stone-500">{store.phones.join(" · ")}</p>
       <div className="mt-5 flex flex-wrap gap-3">
-        <WhatsAppButton href={whatsappUrl(messages.directions(store))} tone="navy">
+        <WhatsAppButton href={whatsappUrl(messages.directions(store))} tone="navy" segment={segment}>
           Como chegar no WhatsApp
         </WhatsAppButton>
         <a
@@ -72,7 +82,7 @@ function StoreBlock({ store }: { store: Store }) {
   );
 }
 
-function QuoteForm() {
+function QuoteForm({ whatsappDisplay }: { whatsappDisplay: string }) {
   const [name, setName] = useState("");
   const [city, setCity] = useState("Atibaia");
   const [store, setStore] = useState<StoreId | "qualquer">("atibaia");
@@ -93,6 +103,7 @@ function QuoteForm() {
       `Loja: ${storeLabel}`,
       `Pedido: ${items.trim()}`,
     ].join("\n");
+    void trackWhatsApp("quote_form");
     window.open(whatsappUrl(message), "_blank", "noopener,noreferrer");
   }
 
@@ -145,7 +156,7 @@ function QuoteForm() {
         Peça o Orçamento
       </button>
       <p className="text-xs text-stone-500">
-        Sem carrinho e sem cadastro. O pedido abre direto no WhatsApp {business.whatsapp.display}.
+        Sem carrinho e sem cadastro. O pedido abre direto no WhatsApp {whatsappDisplay}.
       </p>
     </form>
   );
@@ -153,16 +164,37 @@ function QuoteForm() {
 
 export default function App() {
   const [open, setOpen] = useState(false);
+  const [slogan, setSlogan] = useState<string>(business.slogan);
+  const [tagline, setTagline] = useState<string>(business.tagline);
+  const [whatsappDisplay, setWhatsappDisplay] = useState<string>(business.whatsapp.display);
+  const [hoursSummary, setHoursSummary] = useState<string>(business.hoursSummary);
   const openNow = isOpenNow();
   const holiday = isHoliday();
-  const statusLabel = openNow ? (holiday ? "Aberto · feriado" : "Aberto agora") : holiday ? "Fechado · feriado" : "Fechado agora";
+  const statusLabel = openNow
+    ? holiday
+      ? "Aberto · feriado"
+      : "Aberto agora"
+    : holiday
+      ? "Fechado · feriado"
+      : "Fechado agora";
+
+  useEffect(() => {
+    void trackVisit();
+    void fetchConfig().then((data) => {
+      const cfg = data.config || {};
+      if (cfg.slogan) setSlogan(cfg.slogan);
+      if (cfg.tagline) setTagline(cfg.tagline);
+      if (cfg.whatsappDisplay) setWhatsappDisplay(cfg.whatsappDisplay);
+      if (cfg.hoursSummary) setHoursSummary(cfg.hoursSummary);
+    });
+  }, []);
 
   return (
     <div className="min-h-svh bg-[#f6f4ef] text-stone-900">
       {!openNow ? (
         <div className="bg-signal px-4 py-2.5 text-center text-sm font-semibold text-navy sm:px-6">
           {holiday ? "Hoje é feriado. " : "Fora do horário agora. "}
-          Funcionamos {business.hoursSummary}. Pode mandar no WhatsApp — respondemos assim que abrir.
+          Funcionamos {hoursSummary}. Pode mandar no WhatsApp — respondemos assim que abrir.
         </div>
       ) : null}
       <header className="sticky top-0 z-30 border-b border-white/10 bg-navy text-white">
@@ -176,7 +208,9 @@ export default function App() {
                 {item.label}
               </a>
             ))}
-            <WhatsAppButton href={whatsappUrl(messages.quote)}>Peça o Orçamento</WhatsAppButton>
+            <WhatsAppButton href={whatsappUrl(messages.quote)} segment="nav_desktop">
+              Peça o Orçamento
+            </WhatsAppButton>
           </nav>
           <button
             type="button"
@@ -194,7 +228,9 @@ export default function App() {
                 {item.label}
               </a>
             ))}
-            <WhatsAppButton href={whatsappUrl(messages.quote)}>Peça o Orçamento</WhatsAppButton>
+            <WhatsAppButton href={whatsappUrl(messages.quote)} segment="nav_mobile">
+              Peça o Orçamento
+            </WhatsAppButton>
           </div>
         ) : null}
       </header>
@@ -211,7 +247,9 @@ export default function App() {
               Peça o seu orçamento na melhor casa de materiais da região
             </h1>
             <div className="mt-8">
-              <WhatsAppButton href={whatsappUrl(messages.quote)}>Peça o Orçamento</WhatsAppButton>
+              <WhatsAppButton href={whatsappUrl(messages.quote)} segment="hero_cta">
+                Peça o Orçamento
+              </WhatsAppButton>
             </div>
           </div>
         </section>
@@ -260,6 +298,7 @@ export default function App() {
                 href={whatsappUrl(messages.buy(category.title))}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => void trackWhatsApp(`category:${category.title}`)}
                 className="photo-zoom group overflow-hidden border border-stone-200 bg-white"
               >
                 <div className="aspect-[4/3] overflow-hidden">
@@ -285,6 +324,7 @@ export default function App() {
                     href={whatsappUrl(messages.buy(product.name))}
                     target="_blank"
                     rel="noreferrer"
+                    onClick={() => void trackWhatsApp(`product:${product.name}`)}
                     className="mt-3 inline-block text-sm font-semibold text-navy underline underline-offset-4"
                   >
                     Comprar no WhatsApp
@@ -301,10 +341,8 @@ export default function App() {
               <p className="w-fit bg-signal px-2 py-1 text-xs font-semibold tracking-[0.18em] text-navy uppercase">
                 A casa
               </p>
-              <h2 className="mt-3 font-heading text-3xl tracking-wide uppercase sm:text-5xl">
-                {business.slogan}
-              </h2>
-              <p className="mt-4 max-w-xl text-white/80">{business.tagline}</p>
+              <h2 className="mt-3 font-heading text-3xl tracking-wide uppercase sm:text-5xl">{slogan}</h2>
+              <p className="mt-4 max-w-xl text-white/80">{tagline}</p>
               <p className="mt-4 text-sm text-white/70">{business.legalName}</p>
             </div>
             <div className="photo-zoom overflow-hidden">
@@ -321,7 +359,8 @@ export default function App() {
             Loja da Rua das Esmeraldas
           </h2>
           <p className="mt-3 max-w-2xl text-stone-600">
-            O atendimento principal é na loja de Atibaia. A filial do Parque dos Estados, em Bragança Paulista, fica logo abaixo.
+            O atendimento principal é na loja de Atibaia. A filial do Parque dos Estados, em Bragança Paulista, fica logo
+            abaixo.
           </p>
           <div className="mt-8 grid gap-4">
             <StoreBlock store={business.stores.atibaia} />
@@ -347,7 +386,8 @@ export default function App() {
             </ul>
             {!openNow ? (
               <p className="mt-4 text-sm text-stone-600">
-                Pode mandar o pedido no WhatsApp mesmo assim — a mensagem já inclui nosso horário e respondemos quando a loja abrir.
+                Pode mandar o pedido no WhatsApp mesmo assim — a mensagem já inclui nosso horário e respondemos quando a
+                loja abrir.
               </p>
             ) : null}
           </div>
@@ -365,9 +405,9 @@ export default function App() {
               <p className="mt-4 text-stone-700">
                 Compra, orçamento e rota saem só pelo WhatsApp. Sem carrinho no site.
               </p>
-              <p className="mt-4 font-semibold text-navy">{business.whatsapp.display}</p>
+              <p className="mt-4 font-semibold text-navy">{whatsappDisplay}</p>
             </div>
-            <QuoteForm />
+            <QuoteForm whatsappDisplay={whatsappDisplay} />
           </div>
         </section>
       </main>
@@ -376,7 +416,7 @@ export default function App() {
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-3 sm:px-6">
           <div>
             <p className="font-heading text-xl tracking-wide uppercase">{business.name}</p>
-            <p className="mt-2 text-sm text-white/75">{business.slogan}</p>
+            <p className="mt-2 text-sm text-white/75">{slogan}</p>
           </div>
           <div className="text-sm text-white/80">
             <p className="font-semibold text-signal">Atibaia</p>
@@ -385,8 +425,14 @@ export default function App() {
             <p>{storeAddress(business.stores.braganca)}</p>
           </div>
           <div className="text-sm">
-            <a href={whatsappUrl(messages.general)} target="_blank" rel="noreferrer" className="font-semibold text-signal">
-              WhatsApp {business.whatsapp.display}
+            <a
+              href={whatsappUrl(messages.general)}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => void trackWhatsApp("footer")}
+              className="font-semibold text-signal"
+            >
+              WhatsApp {whatsappDisplay}
             </a>
             <p className="mt-2">
               <a href={business.instagram} target="_blank" rel="noreferrer" className="underline underline-offset-4">
@@ -401,6 +447,7 @@ export default function App() {
         href={whatsappUrl(messages.quote)}
         target="_blank"
         rel="noreferrer"
+        onClick={() => void trackWhatsApp("floating")}
         className="fixed right-4 bottom-4 z-40 bg-[#25D366] px-4 py-3 text-sm font-semibold text-white shadow-lg"
       >
         WhatsApp

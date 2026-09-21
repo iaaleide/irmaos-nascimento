@@ -1,10 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import Admin from "./Admin";
 import App from "./App";
 import "./index.css";
 
+const path = window.location.pathname.replace(/\/+$/, "") || "/";
+const isAdmin = path === "/admin";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    {isAdmin ? <Admin /> : <App />}
   </StrictMode>,
 );
