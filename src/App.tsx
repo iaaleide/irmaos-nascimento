@@ -15,6 +15,16 @@ import {
   type StoreId,
 } from "./data";
 
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
+      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="2" />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+    </svg>
+  );
+}
+
 const nav = [
   { href: "#inicio", label: "Início" },
   { href: "#produtos", label: "Produtos" },
@@ -453,11 +463,16 @@ export default function App() {
               className="mt-4 flex w-fit items-center gap-3 rounded-sm border border-white/20 bg-white/5 px-3 py-2.5 hover:bg-white/10"
               aria-label={`Instagram ${business.instagramHandle}`}
             >
-              <img
-                src={business.logo}
-                alt="Perfil Instagram Irmãos Nascimento"
-                className="size-12 shrink-0 bg-white object-contain p-1"
-              />
+              <span className="flex shrink-0 items-center gap-2">
+                <span className="flex size-10 items-center justify-center bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white">
+                  <InstagramIcon className="size-5" />
+                </span>
+                <img
+                  src={business.logo}
+                  alt="Perfil Instagram Irmãos Nascimento"
+                  className="size-12 bg-white object-contain p-1"
+                />
+              </span>
               <span>
                 <span className="block text-xs tracking-[0.14em] text-white/70 uppercase">Instagram</span>
                 <span className="font-semibold text-signal">{business.instagramHandle}</span>
