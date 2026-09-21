@@ -12,8 +12,8 @@ export const business = {
     display: "(11) 97500-4168",
   },
   hours: [
-    { days: "Segunda a sábado", time: "07h às 18h" },
-    { days: "Domingo", time: "07h às 12h" },
+    { days: "Segunda a sábado", time: "07h30 às 17h30" },
+    { days: "Domingo", time: "07h30 às 12h" },
     { days: "Feriados", time: "Fechado" },
   ],
   /** Texto pronto para Mensagem de ausência no WhatsApp Business. */
@@ -23,15 +23,15 @@ export const business = {
     "No momento estamos *fora do horário de atendimento*.",
     "",
     "Nosso horário de funcionamento:",
-    "• Segunda a sábado: 07h às 18h",
-    "• Domingo: 07h às 12h",
+    "• Segunda a sábado: 07h30 às 17h30",
+    "• Domingo: 07h30 às 12h",
     "• Feriados: fechado",
     "",
     "Deixe sua mensagem com nome, o que precisa e a cidade da obra.",
     "Assim que a loja abrir, retornamos por aqui.",
   ].join("\n"),
   hoursSummary:
-    "Segunda a sábado: 07h às 18h · Domingo: 07h às 12h · Feriados: fechado",
+    "Segunda a sábado: 07h30 às 17h30 · Domingo: 07h30 às 12h · Feriados: fechado",
   stores: {
     atibaia: {
       id: "atibaia",
@@ -106,12 +106,12 @@ export function getSaoPauloNow(date = new Date()) {
   return { weekday, hour, minute, minutes: hour * 60 + minute };
 }
 
-/** Aberto: seg–sáb 07h–18h, domingo 07h–12h. Feriados não dá para detectar no site. */
+/** Aberto: seg–sáb 07h30–17h30, domingo 07h30–12h. Feriados não dá para detectar no site. */
 export function isOpenNow(date = new Date()) {
   const { weekday, minutes } = getSaoPauloNow(date);
-  const open = 7 * 60;
+  const open = 7 * 60 + 30;
   if (weekday === 0) return minutes >= open && minutes < 12 * 60;
-  return minutes >= open && minutes < 18 * 60;
+  return minutes >= open && minutes < 17 * 60 + 30;
 }
 
 export function withHoursIfClosed(message: string, date = new Date()) {
