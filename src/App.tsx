@@ -215,8 +215,9 @@ export default function App() {
               alt="Logo Irmãos Nascimento"
               className="h-10 w-auto shrink-0 bg-white object-contain p-1 sm:h-12"
             />
-            <span className="font-heading text-sm tracking-wide uppercase sm:text-base md:text-lg">
-              Irmãos Nascimento | Casa de Materiais de Construção
+            <span className="font-heading text-base tracking-wide uppercase sm:text-lg md:text-xl">
+              <span className="text-signal">Irmãos Nascimento</span>
+              <span> | Casa de Materiais de Construção</span>
             </span>
           </a>
           <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
