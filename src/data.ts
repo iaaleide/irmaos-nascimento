@@ -16,6 +16,22 @@ export const business = {
     { days: "Domingo", time: "07h às 12h" },
     { days: "Feriados", time: "Fechado" },
   ],
+  /** Texto pronto para Mensagem de ausência no WhatsApp Business. */
+  awayAutoReply: [
+    "Olá! Obrigado por falar com a *Irmãos Nascimento*.",
+    "",
+    "No momento estamos *fora do horário de atendimento*.",
+    "",
+    "Nosso horário de funcionamento:",
+    "• Segunda a sábado: 07h às 18h",
+    "• Domingo: 07h às 12h",
+    "• Feriados: fechado",
+    "",
+    "Deixe sua mensagem com nome, o que precisa e a cidade da obra.",
+    "Assim que a loja abrir, retornamos por aqui.",
+  ].join("\n"),
+  hoursSummary:
+    "Segunda a sábado: 07h às 18h · Domingo: 07h às 12h · Feriados: fechado",
   stores: {
     atibaia: {
       id: "atibaia",
@@ -58,7 +74,56 @@ export function mapsUrl(store: Store) {
 }
 
 export function whatsappUrl(message: string) {
-  return `https://wa.me/${business.whatsapp.e164}?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${business.whatsapp.e164}?text=${encodeURIComponent(withHoursIfClosed(message))}`;
+}
+
+const weekdayMap: Record<string, number> = {
+  Sun: 0,
+  Mon: 1,
+  Tue: 2,
+  Wed: 3,
+  Thu: 4,
+  Fri: 5,
+  Sat: 6,
+};
+
+/** Horário local de Atibaia / Bragança (America/Sao_Paulo). */
+export function getSaoPauloNow(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Sao_Paulo",
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(date);
+
+  const get = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((part) => part.type === type)?.value ?? "";
+
+  const weekday = weekdayMap[get("weekday")] ?? 0;
+  const hour = Number(get("hour"));
+  const minute = Number(get("minute"));
+  return { weekday, hour, minute, minutes: hour * 60 + minute };
+}
+
+/** Aberto: seg–sáb 07h–18h, domingo 07h–12h. Feriados não dá para detectar no site. */
+export function isOpenNow(date = new Date()) {
+  const { weekday, minutes } = getSaoPauloNow(date);
+  const open = 7 * 60;
+  if (weekday === 0) return minutes >= open && minutes < 12 * 60;
+  return minutes >= open && minutes < 18 * 60;
+}
+
+export function withHoursIfClosed(message: string, date = new Date()) {
+  if (isOpenNow(date)) return message;
+  return [
+    message,
+    "",
+    "———",
+    "Estou mandando fora do horário de atendimento.",
+    `Horário: ${business.hoursSummary}.`,
+    "Podem responder quando a loja abrir, por favor.",
+  ].join("\n");
 }
 
 export const messages = {

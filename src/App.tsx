@@ -3,6 +3,7 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import {
   business,
   categories,
+  isOpenNow,
   mapsUrl,
   messages,
   products,
@@ -151,9 +152,15 @@ function QuoteForm() {
 
 export default function App() {
   const [open, setOpen] = useState(false);
+  const openNow = isOpenNow();
 
   return (
     <div className="min-h-svh bg-[#f6f4ef] text-stone-900">
+      {!openNow ? (
+        <div className="bg-signal px-4 py-2.5 text-center text-sm font-semibold text-navy sm:px-6">
+          Fora do horário agora. Funcionamos {business.hoursSummary}. Pode mandar no WhatsApp — respondemos assim que abrir.
+        </div>
+      ) : null}
       <header className="sticky top-0 z-30 border-b border-white/10 bg-navy text-white">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:h-18 sm:px-6">
           <a href="#inicio" className="font-heading text-lg tracking-wide uppercase sm:text-xl">
@@ -317,7 +324,16 @@ export default function App() {
             <StoreBlock store={business.stores.braganca} />
           </div>
           <div className="mt-8 border border-stone-200 bg-white p-6">
-            <h3 className="font-heading text-xl tracking-wide text-navy uppercase">Horário</h3>
+            <div className="flex flex-wrap items-center gap-3">
+              <h3 className="font-heading text-xl tracking-wide text-navy uppercase">Horário</h3>
+              <span
+                className={`px-2 py-0.5 text-xs font-semibold tracking-wide uppercase ${
+                  openNow ? "bg-emerald-100 text-emerald-900" : "bg-signal text-navy"
+                }`}
+              >
+                {openNow ? "Aberto agora" : "Fechado agora"}
+              </span>
+            </div>
             <ul className="mt-3 grid gap-2 text-stone-700 sm:grid-cols-3">
               {business.hours.map((row) => (
                 <li key={row.days}>
@@ -325,6 +341,11 @@ export default function App() {
                 </li>
               ))}
             </ul>
+            {!openNow ? (
+              <p className="mt-4 text-sm text-stone-600">
+                Pode mandar o pedido no WhatsApp mesmo assim — a mensagem já inclui nosso horário e respondemos quando a loja abrir.
+              </p>
+            ) : null}
           </div>
         </section>
 
