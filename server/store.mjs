@@ -4,11 +4,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const dataDir = process.env.VERCEL
-  ? path.join("/tmp", "irmaos-nascimento-data")
-  : path.join(root, ".data");
+/** Contadores e config ficam só em disco local até migrar com banco de dados. */
+const dataDir = path.join(root, ".data");
 const storePath = path.join(dataDir, "analytics.json");
-const ephemeral = Boolean(process.env.VERCEL);
+const localOnly = Boolean(process.env.VERCEL);
 
 const DEFAULT_PASSWORD = "irmaos2026";
 
@@ -44,6 +43,7 @@ function emptyStore() {
 }
 
 function ensureStore() {
+  if (localOnly) return;
   if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
   if (!fs.existsSync(storePath)) {
     fs.writeFileSync(storePath, JSON.stringify(emptyStore(), null, 2));
@@ -51,6 +51,7 @@ function ensureStore() {
 }
 
 function readStore() {
+  if (localOnly) return emptyStore();
   ensureStore();
   try {
     const raw = JSON.parse(fs.readFileSync(storePath, "utf8"));
@@ -61,6 +62,7 @@ function readStore() {
 }
 
 function writeStore(data) {
+  if (localOnly) return data;
   ensureStore();
   data.updatedAt = new Date().toISOString();
   fs.writeFileSync(storePath, JSON.stringify(data, null, 2));
@@ -96,6 +98,7 @@ export function login(password) {
 }
 
 export function trackVisit() {
+  if (localOnly) return { visits: 0, skipped: true, localOnly: true };
   const data = readStore();
   const day = todayKey();
   data.visits += 1;
@@ -105,6 +108,7 @@ export function trackVisit() {
 }
 
 export function trackWhatsApp(segment) {
+  if (localOnly) return { segment: String(segment || "outros"), count: 0, skipped: true, localOnly: true };
   const key = String(segment || "outros").slice(0, 80);
   const data = readStore();
   const day = todayKey();
@@ -116,6 +120,21 @@ export function trackWhatsApp(segment) {
 }
 
 export function getStats() {
+  if (localOnly) {
+    return {
+      visits: 0,
+      visitsToday: 0,
+      whatsappTotal: 0,
+      whatsappToday: 0,
+      whatsappBySegment: {},
+      visitsByDay: {},
+      whatsappByDay: {},
+      updatedAt: null,
+      segments: SEGMENTS,
+      localOnly: true,
+      ephemeral: true,
+    };
+  }
   const data = readStore();
   const whatsappTotal = Object.values(data.whatsapp).reduce((sum, n) => sum + n, 0);
   const day = todayKey();
@@ -129,11 +148,13 @@ export function getStats() {
     whatsappByDay: data.whatsappByDay,
     updatedAt: data.updatedAt,
     segments: SEGMENTS,
-    ephemeral,
+    localOnly: false,
+    ephemeral: false,
   };
 }
 
 export function resetStats() {
+  if (localOnly) return getStats();
   const data = readStore();
   data.visits = 0;
   data.visitsByDay = {};
@@ -148,6 +169,9 @@ export function getConfig() {
 }
 
 export function saveConfig(partial) {
+  if (localOnly) {
+    return { ...emptyStore().config, ...partial, skipped: true, localOnly: true };
+  }
   const data = readStore();
   data.config = { ...data.config, ...partial };
   writeStore(data);

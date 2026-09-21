@@ -18,6 +18,8 @@ async function postJson(url: string, body: unknown, token?: string | null) {
 }
 
 export async function trackVisit() {
+  // Contadores só no ambiente local até migrar com banco de dados
+  if (typeof window !== "undefined" && /\.vercel\.app$/i.test(window.location.hostname)) return;
   try {
     if (sessionStorage.getItem(VISIT_KEY)) return;
     sessionStorage.setItem(VISIT_KEY, "1");
@@ -28,6 +30,7 @@ export async function trackVisit() {
 }
 
 export async function trackWhatsApp(segment: string) {
+  if (typeof window !== "undefined" && /\.vercel\.app$/i.test(window.location.hostname)) return;
   try {
     await postJson("/api/track", { type: "whatsapp", segment });
   } catch {

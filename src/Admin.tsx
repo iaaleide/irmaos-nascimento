@@ -20,6 +20,7 @@ type Stats = {
   visitsByDay: Record<string, number>;
   updatedAt: string | null;
   ephemeral?: boolean;
+  localOnly?: boolean;
 };
 
 export default function Admin() {
@@ -118,13 +119,17 @@ export default function Admin() {
     setSavedMsg("");
     setError("");
     try {
-      await saveConfig({
+      const result = await saveConfig({
         slogan,
         tagline,
         whatsappDisplay,
         hoursSummary,
       });
-      setSavedMsg("Alterações salvas. O site público já pode usar esses textos.");
+      if (result?.config?.skipped || result?.config?.localOnly) {
+        setSavedMsg("Na Vercel o salvamento ainda não grava. Use o admin no ambiente local (npm start).");
+      } else {
+        setSavedMsg("Alterações salvas em .data/analytics.json. O site local já pode usar esses textos.");
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro ao salvar");
     }
@@ -197,12 +202,17 @@ export default function Admin() {
       </header>
 
       <main className="mx-auto grid max-w-6xl gap-8 px-4 py-8 sm:px-6">
-        {stats?.ephemeral ? (
+        {stats?.localOnly || stats?.ephemeral ? (
           <p className="border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950">
-            Contadores na Vercel usam armazenamento temporário do servidor. Em reinícios podem zerar. No preview local
-            os dados ficam salvos em <code>.data/analytics.json</code>.
+            Contadores e alterações ficam salvos <strong>só no ambiente local</strong> (
+            <code>.data/analytics.json</code>). Na Vercel ainda não há banco — quando migrarmos o site com
+            banco de dados, ligamos o contador permanente.
           </p>
-        ) : null}
+        ) : (
+          <p className="border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-950">
+            Dados salvos localmente em <code>.data/analytics.json</code>.
+          </p>
+        )}
 
         {error ? <p className="text-sm text-red-700">{error}</p> : null}
 

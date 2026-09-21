@@ -33,7 +33,8 @@ Em `/admin` você consegue:
 - Editar slogan, texto de apoio, WhatsApp exibido e resumo do horário
 - Zerar contadores
 
-Os dados ficam em `.data/analytics.json` no servidor local. Na Vercel o armazenamento é temporário do runtime (pode zerar em reinícios).
+**Por enquanto tudo fica salvo só no local**, em `.data/analytics.json` (via `npm start`).  
+Na Vercel o site público funciona, mas o contador ainda não grava — quando migrarmos com banco de dados, ligamos o contador permanente.
 
 ## O que o site faz
 
