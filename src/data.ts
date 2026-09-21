@@ -4,8 +4,8 @@ export const business = {
   slogan: "Aqui você encontra o que precisa, é bem atendido e sai feliz.",
   tagline:
     "Casa de material de construção na Rua das Esmeraldas, em Atibaia: atendimento de verdade, o item certo para a obra e a paz de resolver tudo no mesmo lugar.",
-  instagram: "https://www.instagram.com/irmaosnascimento2023",
-  instagramHandle: "@irmaosnascimento2023",
+  instagram: "https://www.instagram.com/irmaosnasc_26",
+  instagramHandle: "@irmaosnasc_26",
   email: "alonsomarques1@gmail.com",
   whatsapp: {
     e164: "5511975004168",
